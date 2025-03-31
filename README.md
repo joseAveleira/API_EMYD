@@ -8,6 +8,8 @@ Este proyecto es una API RESTful de la asignatura segurdad de datos en red para 
 - **Gestión de Lecturas**: Crear, leer y eliminar lecturas de sensores.
 - **Filtrado por Fecha**: Obtener lecturas de sensores filtradas por un rango de fechas.
 - **Conexión a MongoDB**: Utiliza Mongoose para la conexión y manipulación de datos en MongoDB.
+- **Soporte para MQTT**: Publicación y suscripción a eventos de sensores mediante MQTT.
+- **Soporte para CoAP**: Interacción con sensores utilizando el protocolo CoAP.
 
 ## Estructura del Proyecto
 
@@ -17,6 +19,8 @@ Este proyecto es una API RESTful de la asignatura segurdad de datos en red para 
 - **testCallback.js**: Contiene un ejemplo de uso de promesas y funciones asíncronas en JavaScript.
 - **sensors.json**: Archivo JSON con datos de ejemplo de un sensor.
 - **package.json**: Define las dependencias del proyecto.
+- **mqtt/**: Contiene la lógica para la integración con MQTT.
+- **coap/**: Contiene la lógica para la integración con CoAP.
 
 ## Instalación
 
@@ -36,11 +40,12 @@ Este proyecto es una API RESTful de la asignatura segurdad de datos en red para 
 ## Uso
 
 1. Asegúrate de tener MongoDB corriendo en `localhost:27017`.
-2. Inicia el servidor:
+2. Configura los brokers MQTT y CoAP si es necesario.
+3. Inicia el servidor:
     ```sh
     node server.js
     ```
-3. El servidor estará corriendo en `http://localhost:9000`.
+4. El servidor estará corriendo en `http://localhost:9000`.
 
 ## Endpoints
 
@@ -59,6 +64,16 @@ Este proyecto es una API RESTful de la asignatura segurdad de datos en red para 
 - **DELETE /readings/:sensorId**: Elimina todas las lecturas de un sensor por su ID.
 - **GET /readingsTime/:sensorId**: Obtiene lecturas de un sensor filtradas por un rango de fechas.
 
+### MQTT
+
+- **Publicación**: Los sensores publican eventos en un tópico específico.
+- **Suscripción**: Los clientes pueden suscribirse a eventos de sensores.
+
+### CoAP
+
+- **GET /coap/sensors**: Obtiene todos los sensores utilizando CoAP.
+- **POST /coap/sensors**: Crea un nuevo sensor utilizando CoAP.
+
 ## Dependencias
 
 - **express**: Framework web para Node.js.
@@ -66,6 +81,8 @@ Este proyecto es una API RESTful de la asignatura segurdad de datos en red para 
 - **body-parser**: Middleware para parsear cuerpos de solicitudes.
 - **mongoose**: ODM para MongoDB.
 - **moment**: Biblioteca para manipulación de fechas y horas.
+- **mqtt**: Cliente MQTT para Node.js.
+- **coap**: Cliente y servidor CoAP para Node.js.
 
 ## Contribuciones
 

@@ -7,6 +7,7 @@ const sensorRoutes = require('./routes/sensors.routes');
 const readingRoutes = require('./routes/readings.routes');
 const authRoutes = require('./routes/auth.routes');
 const mqttBroker = require('./services/broker');
+const coapServer = require('./services/coapServer')
 
 const app = express();
 const port = 3000;
@@ -29,4 +30,5 @@ app.get('/test', (req, res) => res.json({ msg: 'El API REST funciona!' }));
 
 // Iniciar servidor
 mqttBroker.startBroker();
+coapServer.init();
 app.listen(port, () => console.log(`Servidor corriendo en el puerto ${port}`));
