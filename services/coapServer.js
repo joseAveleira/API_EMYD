@@ -131,7 +131,30 @@ function init() {
           message: err.message
         }));
       }
-    } else {
+    }if (path === '/obs') {
+      // Si NO es una petición Observe (solo quiere los datos una vez)
+      if (req.headers.Observe !== 0) {
+        const data = {
+          temperature: Math.floor(Math.random() * 41),
+          humidity: Math.floor(Math.random() * 91) + 10
+        };
+        return res.end(JSON.stringify(data));
+      }
+    
+      // Si es una suscripción Observe, enviamos datos periódicos
+      const interval = setInterval(() => {
+        const data = {
+          temperature: Math.floor(Math.random() * 41),
+          humidity: Math.floor(Math.random() * 91) + 10
+        };
+        res.write(JSON.stringify(data));
+      }, 1000); // cada segundo
+    
+      // Limpiar el intervalo cuando el cliente deja de observar
+      res.on('finish', () => {
+        clearInterval(interval);
+      });
+    }else {
       res.code = '4.04'
       res.end('Ruta desconocida\n')
     }
